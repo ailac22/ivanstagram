@@ -32,8 +32,8 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/ivanstagram
-    username: ivanstagram
+    url: jdbc:postgresql://localhost:5432/ivanstagramdb
+    username: ${DEV_DB_USERNAME}
     password:
     hikari:
       poolName: Hikari
