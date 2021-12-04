@@ -56,6 +56,11 @@ module.exports = async options =>
           changeOrigin: options.tls,
         },
       ],
+      open: {
+        app: {
+          name: 'chromium',
+        },
+      },
       https: options.tls,
       historyApiFallback: true,
     },
