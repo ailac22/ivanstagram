@@ -42,6 +42,9 @@
     "enableGradleEnterprise": false,
     "languages": ["en", "fr"],
     "lastLiquibaseTimestamp": 1638625325000,
-    "entities": ["Post", "Comment"]
+    "entities": ["Post", "Comment"],
+    "herokuAppName": "ivanstagram",
+    "herokuDeployType": "git",
+    "herokuJavaVersion": "11"
   }
 }
