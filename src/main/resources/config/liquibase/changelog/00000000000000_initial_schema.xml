@@ -140,7 +140,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="00000000000002" author="jhipster">
+    <changeSet id="00000000000003" author="jhipster">
 
         <createTable tableName="follows">
             <column name="following" type="bigint">
