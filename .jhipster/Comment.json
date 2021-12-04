@@ -1,0 +1,42 @@
+{
+  "fields": [
+    {
+      "fieldName": "comment",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength"],
+      "fieldValidateRulesMinlength": "3"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipName": "owner",
+      "otherEntityName": "user",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": ["required"],
+      "otherEntityField": "login",
+      "ownerSide": true,
+      "id": false,
+      "otherEntityRelationshipName": "comment"
+    },
+    {
+      "relationshipName": "like",
+      "otherEntityName": "user",
+      "relationshipType": "many-to-many",
+      "otherEntityField": "login",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "comment"
+    }
+  ],
+  "service": "serviceClass",
+  "dto": "no",
+  "jpaMetamodelFiltering": false,
+  "readOnly": false,
+  "pagination": "no",
+  "name": "Comment",
+  "changelogDate": "20211204134205"
+}

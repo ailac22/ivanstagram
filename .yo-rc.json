@@ -41,7 +41,7 @@
     "clientThemeVariant": "",
     "enableGradleEnterprise": false,
     "languages": ["en", "fr"],
-    "lastLiquibaseTimestamp": 1638625055000,
-    "entities": ["Post"]
+    "lastLiquibaseTimestamp": 1638625325000,
+    "entities": ["Post", "Comment"]
   }
 }

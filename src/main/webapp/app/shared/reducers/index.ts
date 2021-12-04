@@ -13,6 +13,8 @@ import passwordReset from 'app/modules/account/password-reset/password-reset.red
 import sessions from 'app/modules/account/sessions/sessions.reducer';
 // prettier-ignore
 import post from 'app/entities/post/post.reducer';
+// prettier-ignore
+import comment from 'app/entities/comment/comment.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -27,6 +29,7 @@ const rootReducer = {
   settings,
   sessions,
   post,
+  comment,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };
