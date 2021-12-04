@@ -44,6 +44,8 @@
             </column>
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
+            <column name="comment" type="varchar(200)" />
+            <column name="link" type="varchar(100)" />
         </createTable>
 
         <createTable tableName="jhi_authority">
@@ -137,4 +139,19 @@
             <column name="local_date" type="date"/>
         </createTable>
     </changeSet>
+
+    <changeSet id="00000000000002" author="jhipster">
+
+        <createTable tableName="follows">
+            <column name="following" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="followed" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="following, followed" tableName="follows"/>
+    </changeSet>
+
 </databaseChangeLog>
