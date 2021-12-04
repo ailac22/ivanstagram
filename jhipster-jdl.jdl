@@ -1,0 +1,31 @@
+entity Post {
+	image ImageBlob
+    createdAt ZonedDateTime
+    
+}
+
+entity Comment {
+	comment String
+    createdAt ZonedDateTime
+}
+
+relationship OneToOne {
+	Post{owner required} to User
+}
+
+
+relationship ManyToMany {
+	Post to User //like post
+}
+
+relationship ManyToMany {
+	User{follower} to User{followed}
+}
+
+relationship OneToOne {
+	User{owner} to Comment
+}
+
+relationship ManyToMany {
+	Comment to User 
+}

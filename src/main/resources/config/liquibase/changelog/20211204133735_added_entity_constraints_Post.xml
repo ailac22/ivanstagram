@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Post.
+    -->
+    <changeSet id="20211204133735-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="owner_id"
+                                 baseTableName="post"
+                                 constraintName="fk_post__owner_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="post_id"
+                                 baseTableName="rel_post__like"
+                                 constraintName="fk_rel_post__like__post_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="post"/>
+
+        <addForeignKeyConstraint baseColumnNames="like_id"
+                                 baseTableName="rel_post__like"
+                                 constraintName="fk_rel_post__like__like_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+    </changeSet>
+</databaseChangeLog>
