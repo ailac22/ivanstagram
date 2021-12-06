@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.JoinFormula;
 
 /**
  * A Post.
@@ -32,6 +35,7 @@ public class Post implements Serializable {
 
     @NotNull
     @Column(name = "created_at", nullable = false)
+    @CreationTimestamp
     private ZonedDateTime createdAt;
 
     @OneToOne(optional = false)
@@ -42,6 +46,9 @@ public class Post implements Serializable {
     @ManyToMany
     @JoinTable(name = "rel_post__like", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "like_id"))
     private Set<User> likes = new HashSet<>();
+
+    @Formula("(select count(*) from rel_post__like r where r.post_id = id)")
+    public Long likeCount;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
