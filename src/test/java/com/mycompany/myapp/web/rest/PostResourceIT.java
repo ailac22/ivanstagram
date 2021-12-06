@@ -84,7 +84,7 @@ class PostResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Post createEntity(EntityManager em) {
-        Post post = new Post().image(DEFAULT_IMAGE).imageContentType(DEFAULT_IMAGE_CONTENT_TYPE).createdAt(DEFAULT_CREATED_AT);
+        Post post = new Post().image(DEFAULT_IMAGE).imageContentType(DEFAULT_IMAGE_CONTENT_TYPE);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -100,7 +100,7 @@ class PostResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Post createUpdatedEntity(EntityManager em) {
-        Post post = new Post().image(UPDATED_IMAGE).imageContentType(UPDATED_IMAGE_CONTENT_TYPE).createdAt(UPDATED_CREATED_AT);
+        Post post = new Post().image(UPDATED_IMAGE).imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -159,7 +159,7 @@ class PostResourceIT {
     void checkCreatedAtIsRequired() throws Exception {
         int databaseSizeBeforeTest = postRepository.findAll().size();
         // set the field null
-        post.setCreatedAt(null);
+        // post.setCreatedAt(null);
 
         // Create the Post, which fails.
 
@@ -186,8 +186,8 @@ class PostResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(post.getId().intValue())))
             .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
-            .andExpect(jsonPath("$.[*].createdAt").value(hasItem(sameInstant(DEFAULT_CREATED_AT))));
+            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))));
+        // .andExpect(jsonPath("$.[*].createdAt").value(hasItem(sameInstant(DEFAULT_CREATED_AT))));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -244,7 +244,7 @@ class PostResourceIT {
         Post updatedPost = postRepository.findById(post.getId()).get();
         // Disconnect from session so that the updates on updatedPost are not directly saved in db
         em.detach(updatedPost);
-        updatedPost.image(UPDATED_IMAGE).imageContentType(UPDATED_IMAGE_CONTENT_TYPE).createdAt(UPDATED_CREATED_AT);
+        updatedPost.image(UPDATED_IMAGE).imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
 
         restPostMockMvc
             .perform(
@@ -366,7 +366,7 @@ class PostResourceIT {
         Post partialUpdatedPost = new Post();
         partialUpdatedPost.setId(post.getId());
 
-        partialUpdatedPost.image(UPDATED_IMAGE).imageContentType(UPDATED_IMAGE_CONTENT_TYPE).createdAt(UPDATED_CREATED_AT);
+        partialUpdatedPost.image(UPDATED_IMAGE).imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
 
         restPostMockMvc
             .perform(

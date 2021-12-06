@@ -43,9 +43,9 @@ public class Post implements Serializable {
     @JoinColumn(unique = true)
     private User owner;
 
-    @ManyToMany
-    @JoinTable(name = "rel_post__like", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "like_id"))
-    private Set<User> likes = new HashSet<>();
+    // @ManyToMany
+    // @JoinTable(name = "rel_post__like", joinColumns = @JoinColumn(name = "post_id"), inverseJoinColumns = @JoinColumn(name = "like_id"))
+    // private Set<User> likes = new HashSet<>();
 
     @Formula("(select count(*) from rel_post__like r where r.post_id = id)")
     public Long likeCount;
@@ -95,15 +95,6 @@ public class Post implements Serializable {
         return this.createdAt;
     }
 
-    public Post createdAt(ZonedDateTime createdAt) {
-        this.setCreatedAt(createdAt);
-        return this;
-    }
-
-    public void setCreatedAt(ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public User getOwner() {
         return this.owner;
     }
@@ -116,31 +107,6 @@ public class Post implements Serializable {
         this.setOwner(user);
         return this;
     }
-
-    public Set<User> getLikes() {
-        return this.likes;
-    }
-
-    public void setLikes(Set<User> users) {
-        this.likes = users;
-    }
-
-    public Post likes(Set<User> users) {
-        this.setLikes(users);
-        return this;
-    }
-
-    public Post addLike(User user) {
-        this.likes.add(user);
-        return this;
-    }
-
-    public Post removeLike(User user) {
-        this.likes.remove(user);
-        return this;
-    }
-
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {

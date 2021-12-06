@@ -56,7 +56,7 @@ public class PostService {
                     existingPost.setImageContentType(post.getImageContentType());
                 }
                 if (post.getCreatedAt() != null) {
-                    existingPost.setCreatedAt(post.getCreatedAt());
+                    // existingPost.setCreatedAt(post.getCreatedAt());
                 }
 
                 return existingPost;

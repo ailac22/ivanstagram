@@ -14,15 +14,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-    @Query(
-        value = "select distinct post from Post post left join fetch post.likes",
-        countQuery = "select count(distinct post) from Post post"
-    )
+    @Query(value = "select distinct post from Post post", countQuery = "select count(distinct post) from Post post")
     Page<Post> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query("select distinct post from Post post left join fetch post.likes")
+    @Query("select distinct post from Post post")
     List<Post> findAllWithEagerRelationships();
 
-    @Query("select post from Post post left join fetch post.likes where post.id =:id")
+    @Query("select post from Post post where post.id =:id")
     Optional<Post> findOneWithEagerRelationships(@Param("id") Long id);
 }
