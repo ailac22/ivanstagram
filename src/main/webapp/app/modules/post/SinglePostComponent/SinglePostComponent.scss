@@ -1,0 +1,24 @@
+.main-image {
+  width: 100%;
+}
+
+$greyTone: 50;
+$InsideborderColor: rgb($greyTone, $greyTone, $greyTone);
+$borderColor: lightgrey;
+
+.single-post-container {
+  display: grid;
+  border: 1px solid $borderColor;
+  grid-template-columns: auto 25em;
+  // background-color:blue;
+}
+
+.comments {
+  display: flow-root;
+  border-left: 1px solid $borderColor;
+  min-width: 100px;
+}
+
+.myred {
+  background-color: red;
+}

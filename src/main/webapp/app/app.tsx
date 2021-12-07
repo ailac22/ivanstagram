@@ -50,7 +50,7 @@ export const App = () => {
         <div className="container-fluid view-container" id="app-view-container">
           <Card className="jh-card">
             <ErrorBoundary>
-              <AppRoutes />
+              <AppRoutes isAuthenticated={isAuthenticated} />
             </ErrorBoundary>
           </Card>
           <Footer />

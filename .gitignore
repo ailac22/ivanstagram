@@ -162,5 +162,4 @@ Desktop.ini
 
 .env
 tmsession.yaml
-.yo-rc.json
-.yo-rc-global.json
+misession.json
