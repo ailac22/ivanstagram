@@ -323,4 +323,22 @@ public class UserService {
     public List<String> getAuthorities() {
         return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
     }
+
+    public void followUser(String follower, String followed) {
+        log.debug("SHHhh! {} is gonna follow {}", follower, followed);
+        User user = userRepository.findOneByLogin(follower).get();
+        log.debug("ivs user first : {}", user);
+
+        User user2 = userRepository.findOneByLogin(followed).get();
+        log.debug("ivs user second : {}", user2);
+
+        user.follow(user2);
+        userRepository.save(user);
+        // User followerUser =
+        // userRepository.findOneByLogin(follower.toLowerCase()).get();
+
+        // User followedUser =
+        // userRepository.findOneByLogin(follower.toLowerCase()).get();
+
+    }
 }

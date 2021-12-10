@@ -108,6 +108,7 @@
     "redux": "4.1.2",
     "redux-thunk": "2.4.0",
     "tslib": "2.3.1",
+    "usehooks-ts": "^2.1.1",
     "uuid": "8.3.2"
   },
   "devDependencies": {

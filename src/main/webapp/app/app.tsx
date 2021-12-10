@@ -38,22 +38,12 @@ export const App = () => {
     <Router basename={baseHref}>
       <div className="app-container" style={{ paddingTop }}>
         <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
-        <ErrorBoundary>
-          <Header
-            isAuthenticated={isAuthenticated}
-            isAdmin={isAdmin}
-            ribbonEnv={ribbonEnv}
-            isInProduction={isInProduction}
-            isOpenAPIEnabled={isOpenAPIEnabled}
-          />
-        </ErrorBoundary>
-        <div className="container-fluid view-container" id="app-view-container">
+        <div className="container" id="app-view-container">
           <Card className="jh-card">
             <ErrorBoundary>
               <AppRoutes isAuthenticated={isAuthenticated} />
             </ErrorBoundary>
           </Card>
-          <Footer />
         </div>
       </div>
     </Router>

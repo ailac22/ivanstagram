@@ -1,5 +1,6 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.UserService;
 import com.mycompany.myapp.service.dto.UserDTO;
 import java.util.*;
@@ -27,6 +28,11 @@ public class PublicUserResource {
     private final Logger log = LoggerFactory.getLogger(PublicUserResource.class);
 
     private final UserService userService;
+
+    private enum FollowState {
+        TO_FOLLOW,
+        FOLLOWING,
+    }
 
     public PublicUserResource(UserService userService) {
         this.userService = userService;
@@ -61,5 +67,15 @@ public class PublicUserResource {
     @GetMapping("/authorities")
     public List<String> getAuthorities() {
         return userService.getAuthorities();
+    }
+
+    @PostMapping("/follow/{user}")
+    public FollowState followUser(@PathVariable(value = "user") String login) {
+        String currentUser = SecurityUtils.getCurrentUserLogin().get();
+
+        userService.followUser(currentUser, login);
+
+        return FollowState.FOLLOWING;
+        // return ResponseEntity.ok().build();
     }
 }

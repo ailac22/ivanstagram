@@ -1,6 +1,7 @@
 package com.mycompany.myapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mycompany.myapp.config.Constants;
 import java.io.Serializable;
 import java.time.Instant;
@@ -92,6 +93,15 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     private Set<PersistentToken> persistentTokens = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "follows", joinColumns = @JoinColumn(name = "following"), inverseJoinColumns = @JoinColumn(name = "followed"))
+    @JsonIgnoreProperties(value = { "user", "following" }, allowSetters = true)
+    private Set<User> following = new HashSet<>();
+
+    public void follow(User e) {
+        following.add(e);
+    }
 
     public Long getId() {
         return id;

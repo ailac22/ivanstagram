@@ -2,6 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.domain.Post;
 import com.mycompany.myapp.repository.PostRepository;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.PostService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -169,5 +170,10 @@ public class PostResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/feed")
+    public List<Post> getFeed() {
+        return postService.getFeed();
     }
 }

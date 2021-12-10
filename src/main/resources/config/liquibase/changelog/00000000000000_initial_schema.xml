@@ -154,4 +154,20 @@
         <addPrimaryKey columnNames="following, followed" tableName="follows"/>
     </changeSet>
 
+    <changeSet id="00000000000004" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="following"
+                                 baseTableName="follows"
+                                 constraintName="fk_follower__user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="following"
+                                 baseTableName="follows"
+                                 constraintName="fk_followed__user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+    </changeSet>
+
 </databaseChangeLog>

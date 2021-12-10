@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
-import Login from 'app/modules/login/login';
+import LoginPage from 'app/modules/login/LoginPage';
 import Register from 'app/modules/account/register/register';
 import Activate from 'app/modules/account/activate/activate';
 import PasswordResetInit from 'app/modules/account/password-reset/init/password-reset-init';
@@ -14,8 +14,9 @@ import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
-
+import FeedPage from 'app/modules/feed/FeedPage';
 import UserProfile from 'app/modules/user/UserProfile/UserProfile';
+import SinglePost from 'app/modules/user/SinglePost';
 
 const Account = Loadable({
   loader: () => import(/* webpackChunkName: "account" */ 'app/modules/account'),
@@ -31,11 +32,6 @@ interface RoutesProps {
   isAuthenticated: boolean;
 }
 
-// <ErrorBoundaryRoute path="/" exact component={Feed} />
-// <ErrorBoundaryRoute path="/p/:id" exact component={SinglePost} />
-
-// <ErrorBoundaryRoute path="/" exact component={LoginPage} />
-
 const Routes: React.FC<RoutesProps> = ({ isAuthenticated }) => {
   return (
     <div className="view-routes">
@@ -47,9 +43,12 @@ const Routes: React.FC<RoutesProps> = ({ isAuthenticated }) => {
             <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
             <ErrorBoundaryRoute path="/:user" exact component={UserProfile} />
             <ErrorBoundaryRoute component={PageNotFound} />
+            <ErrorBoundaryRoute path="/" exact component={FeedPage} />
+            <ErrorBoundaryRoute path="/p/:id" exact component={SinglePost} />
           </>
         ) : (
           <>
+            <ErrorBoundaryRoute path="/" exact component={LoginPage} />
             <ErrorBoundaryRoute path="/account/register" exact component={Register} />
             <ErrorBoundaryRoute path="/account/activate/:key?" component={Activate} />
             <ErrorBoundaryRoute path="/account/reset/request" component={PasswordResetInit} />

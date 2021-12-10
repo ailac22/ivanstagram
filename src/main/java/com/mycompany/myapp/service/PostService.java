@@ -2,6 +2,7 @@ package com.mycompany.myapp.service;
 
 import com.mycompany.myapp.domain.Post;
 import com.mycompany.myapp.repository.PostRepository;
+import com.mycompany.myapp.security.SecurityUtils;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -104,5 +105,15 @@ public class PostService {
     public void delete(Long id) {
         log.debug("Request to delete Post : {}", id);
         postRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Post> getFeed() {
+        String login = SecurityUtils.getCurrentUserLogin().get();
+
+        log.debug("getting fed");
+        List<Post> result = postRepository.getFeed(login);
+        log.debug("result: {}", result);
+        return result;
     }
 }

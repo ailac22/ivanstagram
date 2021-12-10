@@ -11,7 +11,9 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import axios, { AxiosResponse } from 'axios';
 
-export const FeedPage = (props: RouteComponentProps<{ url: string }>) => {
+// import { getEntities } from 'app/entities/post/post.reducer';
+
+const FeedPage = (props: RouteComponentProps<{ url: string }>) => {
   const dispatch = useAppDispatch();
 
   // const postList = useAppSelector(state => state.entry.entities);
@@ -23,20 +25,19 @@ export const FeedPage = (props: RouteComponentProps<{ url: string }>) => {
   }
 
   useEffect(() => {
+    console.log('gonna get feed');
     getFeed().then(entries => {
       setFeed(entries.data);
     });
-    // dispatch(getEntities({})); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!111
+    // dispatch(getEntities({}));
   }, []);
 
   const { match } = props;
 
-  console.log('feed');
-  console.log(feed);
-
   return (
     <div>
       <Header isAuthenticated={true} isAdmin={false} ribbonEnv={''} isInProduction={false} isOpenAPIEnabled={false} />
+      <p>Feed page</p>
       {feed.map(post => {
         return (
           <>
@@ -49,3 +50,5 @@ export const FeedPage = (props: RouteComponentProps<{ url: string }>) => {
     </div>
   );
 };
+
+export default FeedPage;
