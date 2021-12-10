@@ -46,4 +46,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     // @Query("select distinct post from Post post where post.owner IN (select u2.following from User u2 where u2.id = 1)")
     @Query("select post from Post post,User u2 where post.owner in (select u3 from u2.following u3 where u2.login = :login)")
     List<Post> getFeed(@Param("login") String login);
+
+    @Query("select post from Post post where post.owner.login = :user")
+    List<Post> findByOwnerIsUser(@Param("user") String user);
 }

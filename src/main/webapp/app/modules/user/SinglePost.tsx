@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useParams, RouteComponentProps } from 'react-router-dom';
 import SinglePostComponent from 'app/modules/post/SinglePostComponent/SinglePostComponent';
-import usePost from './PostHook';
+import { usePost } from './PostHook';
 import { IPost } from 'app/shared/model/post.model';
 import Header from 'app/shared/layout/header/header';
 

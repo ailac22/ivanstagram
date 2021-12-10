@@ -341,4 +341,9 @@ public class UserService {
         // userRepository.findOneByLogin(follower.toLowerCase()).get();
 
     }
+
+    @Transactional(readOnly = true)
+    public Optional<UserDTO> getPublicUser(String user) {
+        return userRepository.findOneByLogin(user).map(UserDTO::new);
+    }
 }

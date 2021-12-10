@@ -149,7 +149,7 @@ public class PostResource {
      * @param id the id of the post to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the post, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/posts/{id}")
+    @GetMapping("/p/{id}")
     public ResponseEntity<Post> getPost(@PathVariable Long id) {
         log.debug("REST request to get Post : {}", id);
         Optional<Post> post = postService.findOne(id);
@@ -175,5 +175,12 @@ public class PostResource {
     @GetMapping("/feed")
     public List<Post> getFeed() {
         return postService.getFeed();
+    }
+
+    @GetMapping("/{user}/posts")
+    public List<Post> getUserEntries(@PathVariable String user) {
+        log.debug("Requesting user entries from {}", user);
+
+        return postService.findByUser(user);
     }
 }

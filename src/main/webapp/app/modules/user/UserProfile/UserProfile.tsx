@@ -6,33 +6,33 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 // import { getUser } from 'app/entities/ivs-user/ivs-user.reducer';  !!!!!!!!!!!!!!!
 import { Button } from 'reactstrap';
 import UserProfileHeader from 'app/modules/user/UserProfileHeader';
-import FojlowState from 'app/shared/model/info-types';
+import FollowState from 'app/shared/model/info-types';
 import './UserProfile.scss';
 import { RouteComponentProps } from 'react-router-dom';
 import Header from 'app/shared/layout/header/header';
 // import UserProfilePost from 'app/entities/entry/UserProfilePost';
 import { Link } from 'react-router-dom';
+import { usePosts } from '../PostHook';
+import { useUser } from '../UserHooks';
+
+import UserProfilePost from 'app/modules/user/UserProfilePost/UserProfilePost';
 
 const UserProfile: React.FC<RouteComponentProps> = (props: RouteComponentProps<{ user: string }>) => {
   const dispatch = useAppDispatch();
 
-  const ivsuser = useAppSelector(state => state.ivsUser.entity);
-  const userLoading = useAppSelector(state => state.ivsUser.loading);
-  const entryList = useAppSelector(state => state.entry.entities);
-  const loading = useAppSelector(state => state.entry.loading);
-
-  /* Header */
-  const ribbonEnv = useAppSelector(state => state.applicationProfile.ribbonEnv);
-  const isInProduction = useAppSelector(state => state.applicationProfile.inProduction);
-  const isOpenAPIEnabled = useAppSelector(state => state.applicationProfile.isOpenAPIEnabled);
   const userName = props.match.params.user;
 
   const [following, setFollowing] = useState<FollowState>(FollowState.TO_FOLLOW);
 
-  useEffect(() => {
-    dispatch(getUser(userName));
-    dispatch(getUserEntries(userName));
-  }, []);
+  const { data: posts, error } = usePosts(userName);
+  const { data: user, error: userError } = useUser(userName);
+
+  if (error || userError) return <p>There is an error.</p>;
+
+  if (!posts || !user) return <p>Loading...</p>;
+
+  console.log(`user: `);
+  console.log(user);
 
   function handlerFollowUser() {
     axios.post(`/api/admin/follow/${userName}`).then(response => setFollowing(response.data));
@@ -42,11 +42,11 @@ const UserProfile: React.FC<RouteComponentProps> = (props: RouteComponentProps<{
   function renderFeed() {
     return (
       <div className="userPhotosGrid">
-        {entryList.map(entry => {
+        {posts.map(post => {
           return (
             <>
-              <Link to={`/p/${entry.id}`}>
-                <UserProfilePost post={entry}></UserProfilePost>
+              <Link to={`/p/${post.id}`}>
+                <UserProfilePost post={post}></UserProfilePost>
               </Link>
             </>
           );
@@ -59,15 +59,13 @@ const UserProfile: React.FC<RouteComponentProps> = (props: RouteComponentProps<{
 
   return (
     <>
-      <Header isAuthenticated={true} isAdmin={false} ribbonEnv={ribbonEnv} isInProduction={false} isOpenAPIEnabled={false} />
+      <Header isAuthenticated={true} isAdmin={false} ribbonEnv={''} isInProduction={false} isOpenAPIEnabled={false} />
+      <UserProfileHeader user={user}></UserProfileHeader>
       <br />
-
-      {userLoading ? '' : <UserProfileHeader user={ivsuser}></UserProfileHeader>}
-
-      {console.log(ivsuser)}
       <Button color="primary" onClick={handlerFollowUser}>
         {following === FollowState.TO_FOLLOW ? 'Follow' : 'Following'}
       </Button>
+
       {feed}
     </>
   );

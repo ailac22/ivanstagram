@@ -116,4 +116,9 @@ public class PostService {
         log.debug("result: {}", result);
         return result;
     }
+
+    @Transactional(readOnly = true)
+    public List<Post> findByUser(String user) {
+        return postRepository.findByOwnerIsUser(user);
+    }
 }

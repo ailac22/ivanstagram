@@ -1,10 +1,12 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.config.Constants;
 import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.UserService;
 import com.mycompany.myapp.service.dto.UserDTO;
 import java.util.*;
 import java.util.Collections;
+import javax.validation.constraints.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -60,6 +62,11 @@ public class PublicUserResource {
         return pageable.getSort().stream().map(Sort.Order::getProperty).allMatch(ALLOWED_ORDERED_PROPERTIES::contains);
     }
 
+    @GetMapping("/user/{login}")
+    public UserDTO getUser(@PathVariable @Pattern(regexp = Constants.LOGIN_REGEX) String login) {
+        return userService.getPublicUser(login).get(); //!!!!!
+    }
+
     /**
      * Gets a list of all roles.
      * @return a string list of all roles.
@@ -76,6 +83,5 @@ public class PublicUserResource {
         userService.followUser(currentUser, login);
 
         return FollowState.FOLLOWING;
-        // return ResponseEntity.ok().build();
     }
 }
