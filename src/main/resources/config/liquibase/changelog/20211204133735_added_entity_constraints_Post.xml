@@ -20,9 +20,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="post"/>
 
-        <addForeignKeyConstraint baseColumnNames="like_id"
+        <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="rel_post__like"
-                                 constraintName="fk_rel_post__like__like_id"
+                                 constraintName="fk_rel_post__like__user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
     </changeSet>

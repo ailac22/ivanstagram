@@ -7,7 +7,7 @@ export interface IPost {
   image?: string;
   createdAt?: string;
   owner?: IUser;
-  likes?: IUser[] | null;
+  likeCount: number;
 }
 
-export const defaultValue: Readonly<IPost> = {};
+export const defaultValue: Readonly<IPost> = { likeCount: 0 };

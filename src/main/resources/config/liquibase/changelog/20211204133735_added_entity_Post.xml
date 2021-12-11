@@ -34,7 +34,7 @@
     <changeSet id="20211204133735-1-relations" author="jhipster">
 
         <createTable tableName="rel_post__like">
-            <column name="like_id" type="bigint">
+            <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="post_id" type="bigint">
@@ -42,7 +42,7 @@
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="post_id, like_id" tableName="rel_post__like"/>
+        <addPrimaryKey columnNames="post_id, user_id" tableName="rel_post__like"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

@@ -31,12 +31,8 @@ const UserProfile: React.FC<RouteComponentProps> = (props: RouteComponentProps<{
 
   if (!posts || !user) return <p>Loading...</p>;
 
-  console.log(`user: `);
-  console.log(user);
-
   function handlerFollowUser() {
-    axios.post(`/api/admin/follow/${userName}`).then(response => setFollowing(response.data));
-    // dispatch(followUser(userName));
+    axios.post(`/api/follow/${userName}`).then(response => setFollowing(response.data));
   }
 
   function renderFeed() {

@@ -3,6 +3,7 @@ import { IPost } from 'app/shared/model/post.model';
 import { Button, Col, Row, Table, Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 import UserPostHeader from 'app/modules/user/UserPostHeader';
 import UserHeaderComponent from 'app/modules/post/UserHeaderComponent/UserHeaderComponent';
+import LikeComment from 'app/modules/post/LikeComment/LikeComment';
 
 type PostComponentProps = {
   post: IPost;
@@ -17,6 +18,8 @@ const PostComponent: React.FC<PostComponentProps> = ({ post }) => {
       <Card key={post.id}>
         <CardImg src={`data:${post.imageContentType};base64,${post.image}`} width="100%"></CardImg>
         <CardBody>
+          <LikeComment />
+          <p>Likes: {post.likeCount}</p>
           <CardText>Footer was here</CardText>
         </CardBody>
       </Card>
