@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 /**
  * A Comment.
@@ -27,8 +28,9 @@ public class Comment implements Serializable {
     @Column(name = "comment", nullable = false)
     private String comment;
 
-    @NotNull
+    // @NotNull
     @Column(name = "created_at", nullable = false)
+    @CreationTimestamp
     private ZonedDateTime createdAt;
 
     @OneToOne(optional = false)

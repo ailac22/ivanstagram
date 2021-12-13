@@ -1,7 +1,10 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.domain.Comment;
+import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.CommentRepository;
+import com.mycompany.myapp.repository.UserRepository;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.CommentService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -10,6 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,9 +41,12 @@ public class CommentResource {
 
     private final CommentRepository commentRepository;
 
-    public CommentResource(CommentService commentService, CommentRepository commentRepository) {
+    private final UserRepository userRepository;
+
+    public CommentResource(CommentService commentService, CommentRepository commentRepository, UserRepository userRepository) {
         this.commentService = commentService;
         this.commentRepository = commentRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -50,12 +57,22 @@ public class CommentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/comments")
-    public ResponseEntity<Comment> createComment(@Valid @RequestBody Comment comment) throws URISyntaxException {
+    public ResponseEntity<Comment> createComment(@NotEmpty @RequestBody String comment, @RequestBody Long postId)
+        throws URISyntaxException {
         log.debug("REST request to save Comment : {}", comment);
-        if (comment.getId() != null) {
-            throw new BadRequestAlertException("A new comment cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        Comment result = commentService.save(comment);
+        // if (comment.getId() != null) {
+        //     throw new BadRequestAlertException("A new comment cannot already have an ID", ENTITY_NAME, "idexists");
+        // }
+
+        Comment fullComment = new Comment();
+        fullComment.setComment(comment);
+
+        var cuLogin = SecurityUtils.getCurrentUserLogin().get();
+        User user = userRepository.findOneByLogin(cuLogin).get();
+        fullComment.setOwner(user);
+
+        log.debug("voy a guardar {}", comment);
+        Comment result = commentService.save(fullComment);
         return ResponseEntity
             .created(new URI("/api/comments/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))

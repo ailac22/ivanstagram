@@ -25,5 +25,11 @@
                                  constraintName="fk_rel_comment__like__like_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="post_id"
+                                 baseTableName="comment"
+                                 constraintName="fk_rel_comment_post_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user" />
     </changeSet>
 </databaseChangeLog>

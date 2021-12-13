@@ -34,7 +34,7 @@ const SinglePostComponent: React.FC<SinglePostComponentProps> = ({ post }) => {
           <br />
           <UserComment />
           <UserComment />
-          <LikeComment />
+          <LikeComment postId={post.id} />
         </div>
       </div>
     </>

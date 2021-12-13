@@ -18,7 +18,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post }) => {
       <Card key={post.id}>
         <CardImg src={`data:${post.imageContentType};base64,${post.image}`} width="100%"></CardImg>
         <CardBody>
-          <LikeComment />
+          <LikeComment postId={post.id} />
           <p>Likes: {post.likeCount}</p>
           <CardText>Footer was here</CardText>
         </CardBody>
