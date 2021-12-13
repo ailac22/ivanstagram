@@ -156,22 +156,6 @@ public class PostResource {
         return ResponseUtil.wrapOrNotFound(post);
     }
 
-    /**
-     * {@code DELETE  /posts/:id} : delete the "id" post.
-     *
-     * @param id the id of the post to delete.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
-     */
-    @DeleteMapping("/posts/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
-        log.debug("REST request to delete Post : {}", id);
-        postService.delete(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-            .build();
-    }
-
     @GetMapping("/feed")
     public List<Post> getFeed() {
         return postService.getFeed();
@@ -182,5 +166,12 @@ public class PostResource {
         log.debug("Requesting user entries from {}", user);
 
         return postService.findByUser(user);
+    }
+
+    @PostMapping("/p/{id}/like")
+    public ResponseEntity like(@PathVariable Long id) {
+        postService.likePost(id);
+
+        return ResponseEntity.ok().build();
     }
 }

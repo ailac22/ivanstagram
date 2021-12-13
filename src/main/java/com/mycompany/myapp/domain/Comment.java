@@ -42,7 +42,7 @@ public class Comment implements Serializable {
     @JoinTable(
         name = "rel_comment__like",
         joinColumns = @JoinColumn(name = "comment_id"),
-        inverseJoinColumns = @JoinColumn(name = "like_id")
+        inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private Set<User> likes = new HashSet<>();
 

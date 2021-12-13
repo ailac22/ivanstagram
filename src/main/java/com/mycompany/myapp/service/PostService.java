@@ -1,6 +1,7 @@
 package com.mycompany.myapp.service;
 
 import com.mycompany.myapp.domain.Post;
+import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.PostRepository;
 import com.mycompany.myapp.security.SecurityUtils;
 import java.util.List;
@@ -23,8 +24,12 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public PostService(PostRepository postRepository) {
+    private final UserService userService;
+
+    public PostService(PostRepository postRepository, UserService userService) {
         this.postRepository = postRepository;
+
+        this.userService = userService;
     }
 
     /**
@@ -111,14 +116,23 @@ public class PostService {
     public List<Post> getFeed() {
         String login = SecurityUtils.getCurrentUserLogin().get();
 
-        log.debug("getting fed");
         List<Post> result = postRepository.getFeed(login);
-        log.debug("result: {}", result);
         return result;
     }
 
     @Transactional(readOnly = true)
     public List<Post> findByUser(String user) {
         return postRepository.findByOwnerIsUser(user);
+    }
+
+    public void likePost(Long postId) {
+        this.findOne(postId)
+            .ifPresent(post -> {
+                User user = userService.getCurrentUser();
+                post.addLike(user);
+
+                postRepository.save(post);
+                // post.addLike(currentUser);
+            });
     }
 }

@@ -9,7 +9,7 @@ const LikeCommentPanel = () => {
   const fakeLikeCount = 10000;
   const fakeTimeAgo = '1 HOUR AGO';
 
-  function fakeLikeButtonHandler() {
+  function LikeButtonHandler() {
     setLike(() => !liked);
   }
 

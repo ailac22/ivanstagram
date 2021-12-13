@@ -220,6 +220,10 @@ public class UserService {
             });
     }
 
+    public User getCurrentUser() {
+        return userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get()).get();
+    }
+
     /**
      * Update basic information (first name, last name, email, language) for the current user.
      *
