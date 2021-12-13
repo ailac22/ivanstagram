@@ -1,6 +1,8 @@
 import { IPost } from 'app/shared/model/post.model';
 import { useFetch } from 'usehooks-ts';
 
+// TODO: Mover de carpeta
+
 export function usePost(id: string) {
   const postUrl = `/api/p/${id}`;
   return useFetch<IPost>(postUrl);

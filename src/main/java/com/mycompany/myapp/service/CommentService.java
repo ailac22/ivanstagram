@@ -72,6 +72,13 @@ public class CommentService {
         return commentRepository.findAllWithEagerRelationships();
     }
 
+    @Transactional(readOnly = true)
+    public List<Comment> findByPost(Long postId) {
+        log.debug("Request to get all Comments");
+
+        return commentRepository.findByPostId(postId);
+    }
+
     /**
      * Get all the comments with eager load of many-to-many relationships.
      *

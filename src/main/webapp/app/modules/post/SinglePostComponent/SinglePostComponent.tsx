@@ -6,22 +6,20 @@ import UserHeaderComponent from 'app/modules/post/UserHeaderComponent/UserHeader
 import './SinglePostComponent.scss';
 import LikeComment from 'app/modules/post/LikeComment/LikeComment';
 import UserComment from 'app/modules/post/UserComment/UserComment';
+import { useFetchComments } from 'app/modules/hookUtils/CommentHooks';
+import { IComment } from 'app/shared/model/comment.model';
 
 type SinglePostComponentProps = {
   post: IPost;
 };
 
-// Esto se llamará 'FeedPostComponent'
-
-//      <UserPostHeader user={post.owner}></UserPostHeader>
-//      <Card key={post.id}>
-//        <CardImg src={`data:${post.imageContentType};base64,${post.image}`} width="100%"></CardImg>
-//        <CardBody>
-//          <CardText>{post.footer}</CardText>
-//        </CardBody>
-//      </Card>
-// <UserHeaderComponent user={post.owner} />
 const SinglePostComponent: React.FC<SinglePostComponentProps> = ({ post }) => {
+  const { data: comments, error } = useFetchComments(post.id);
+
+  if (error) return <p>There is an error.</p>;
+
+  if (!comments) return <p>Loading...</p>;
+
   return (
     <>
       <br />
@@ -32,8 +30,9 @@ const SinglePostComponent: React.FC<SinglePostComponentProps> = ({ post }) => {
         <div className="comments">
           <UserHeaderComponent user={post.owner} />
           <br />
-          <UserComment />
-          <UserComment />
+          {comments.map((comment, key) => {
+            return <UserComment key={key} comment={comment} />;
+          })}
           <LikeComment postId={post.id} />
         </div>
       </div>

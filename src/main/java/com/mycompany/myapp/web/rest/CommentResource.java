@@ -184,6 +184,8 @@ public class CommentResource {
         return commentService.findAll();
     }
 
+    // TODO: cap to a limited number and duplicate endpoint
+
     /**
      * {@code GET  /comments/:id} : get the "id" comment.
      *
@@ -191,25 +193,24 @@ public class CommentResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the comment, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/comments/{id}")
-    public ResponseEntity<Comment> getComment(@PathVariable Long id) {
+    public List<Comment> getComment(@PathVariable Long id) {
         log.debug("REST request to get Comment : {}", id);
-        Optional<Comment> comment = commentService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(comment);
+        List<Comment> comments = commentService.findByPost(id);
+        return comments;
     }
-
     /**
      * {@code DELETE  /comments/:id} : delete the "id" comment.
      *
      * @param id the id of the comment to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/comments/{id}")
-    public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
-        log.debug("REST request to delete Comment : {}", id);
-        commentService.delete(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-            .build();
-    }
+    // @DeleteMapping("/comments/{id}")
+    // public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
+    //     log.debug("REST request to delete Comment : {}", id);
+    //     commentService.delete(id);
+    //     return ResponseEntity
+    //         .noContent()
+    //         .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+    //         .build();
+    // }
 }

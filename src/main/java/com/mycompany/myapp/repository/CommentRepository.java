@@ -23,6 +23,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Query("select distinct comment from Comment comment left join fetch comment.likes")
     List<Comment> findAllWithEagerRelationships();
 
+    List<Comment> findByPostId(@Param("postId") Long postId);
+
     @Query("select comment from Comment comment left join fetch comment.likes where comment.id =:id")
     Optional<Comment> findOneWithEagerRelationships(@Param("id") Long id);
 }

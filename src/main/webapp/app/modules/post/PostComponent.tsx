@@ -4,6 +4,7 @@ import { Button, Col, Row, Table, Card, CardImg, CardText, CardBody, CardTitle }
 import UserPostHeader from 'app/modules/user/UserPostHeader';
 import UserHeaderComponent from 'app/modules/post/UserHeaderComponent/UserHeaderComponent';
 import LikeComment from 'app/modules/post/LikeComment/LikeComment';
+import { IComment } from 'app/shared/model/comment.model';
 
 type PostComponentProps = {
   post: IPost;
