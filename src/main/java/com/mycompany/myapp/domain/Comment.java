@@ -46,6 +46,11 @@ public class Comment implements Serializable {
     )
     private Set<User> likes = new HashSet<>();
 
+    @OneToOne(optional = false)
+    @NotNull
+    @JoinColumn(unique = false)
+    private Post post;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -85,6 +90,19 @@ public class Comment implements Serializable {
 
     public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Post getPost() {
+        return this.post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public Comment post(Post post) {
+        this.setPost(post);
+        return this;
     }
 
     public User getOwner() {

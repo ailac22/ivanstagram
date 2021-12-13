@@ -28,7 +28,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final JHipsterProperties jHipsterProperties;
 
     private final RememberMeServices rememberMeServices;
-
     private final CorsFilter corsFilter;
     private final SecurityProblemSupport problemSupport;
 
@@ -128,5 +127,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/management/prometheus").permitAll()
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN);
         // @formatter:on
+
+        http.csrf().disable();
     }
 }

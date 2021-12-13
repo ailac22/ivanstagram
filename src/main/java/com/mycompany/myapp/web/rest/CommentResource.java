@@ -1,8 +1,11 @@
 package com.mycompany.myapp.web.rest;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mycompany.myapp.domain.Comment;
+import com.mycompany.myapp.domain.Post;
 import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.CommentRepository;
+import com.mycompany.myapp.repository.PostRepository;
 import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.CommentService;
@@ -18,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
@@ -43,10 +47,21 @@ public class CommentResource {
 
     private final UserRepository userRepository;
 
-    public CommentResource(CommentService commentService, CommentRepository commentRepository, UserRepository userRepository) {
+    private final PostRepository postRepository;
+
+    private static final String postBodyCommentName = "comment";
+    private static final String postBodyPostIdName = "postId";
+
+    public CommentResource(
+        CommentService commentService,
+        CommentRepository commentRepository,
+        UserRepository userRepository,
+        PostRepository postRepository
+    ) {
         this.commentService = commentService;
         this.commentRepository = commentRepository;
         this.userRepository = userRepository;
+        this.postRepository = postRepository;
     }
 
     /**
@@ -56,22 +71,30 @@ public class CommentResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new comment, or with status {@code 400 (Bad Request)} if the comment has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+
+    // @NotEmpty
     @PostMapping("/comments")
-    public ResponseEntity<Comment> createComment(@NotEmpty @RequestBody String comment, @RequestBody Long postId)
-        throws URISyntaxException {
-        log.debug("REST request to save Comment : {}", comment);
+    public ResponseEntity<Comment> createComment(@RequestBody ObjectNode commentNode) throws URISyntaxException {
+        log.debug(
+            "REST request to save Comment : {} with postId {}",
+            commentNode.get(postBodyCommentName).asText(),
+            commentNode.get(postBodyPostIdName).asLong()
+        );
         // if (comment.getId() != null) {
         //     throw new BadRequestAlertException("A new comment cannot already have an ID", ENTITY_NAME, "idexists");
         // }
 
         Comment fullComment = new Comment();
-        fullComment.setComment(comment);
+        fullComment.setComment(commentNode.get(postBodyCommentName).asText());
 
         var cuLogin = SecurityUtils.getCurrentUserLogin().get();
         User user = userRepository.findOneByLogin(cuLogin).get();
-        fullComment.setOwner(user);
 
-        log.debug("voy a guardar {}", comment);
+        Post post = postRepository.findById(commentNode.get(postBodyPostIdName).asLong()).get();
+        fullComment.setOwner(user);
+        fullComment.setPost(post);
+
+        log.debug("voy a guardar {}", commentNode.get(postBodyCommentName).asText());
         Comment result = commentService.save(fullComment);
         return ResponseEntity
             .created(new URI("/api/comments/" + result.getId()))

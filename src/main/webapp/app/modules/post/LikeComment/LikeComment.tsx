@@ -24,7 +24,6 @@ const LikeComment: React.FC<ILikeCommentProps> = ({ postId }) => {
 
   watch('comment', '');
 
-  console.log(formState.isValid);
   const onSubmit: SubmitHandler<IFormInputs> = data => {
     data.postId = postId;
     axios.post<IFormInputs>('/api/comments', data);
