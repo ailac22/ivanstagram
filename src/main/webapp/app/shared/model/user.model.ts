@@ -13,6 +13,9 @@ export interface IUser {
   lastModifiedDate?: Date | null;
   password?: string;
   comment: string;
+  numFollowers?: number;
+  numFollowing?: number;
+  numPosts?: number;
 }
 
 export const defaultValue: Readonly<IUser> = {

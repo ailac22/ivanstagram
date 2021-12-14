@@ -1,0 +1,19 @@
+.user-profile-header {
+  display: flex;
+  justify-content: center;
+}
+
+.user-main-profile-image {
+  border-radius: 50%;
+  margin-right: 5rem;
+}
+
+.uph-numbers-section {
+  display: flex;
+  justify-content: space-between;
+  width: 20rem;
+}
+
+.uph-number {
+  font-weight: bold;
+}

@@ -50,6 +50,9 @@ public class Post implements Serializable {
     @Formula("(select count(*) from rel_post__like r where r.post_id = id)")
     public Long likeCount;
 
+    @Formula("(select count(*) from comment c where c.post_id = id)")
+    public int commentCount;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {

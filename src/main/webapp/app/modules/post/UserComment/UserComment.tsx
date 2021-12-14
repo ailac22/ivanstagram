@@ -9,7 +9,7 @@ interface UserCommentProps {
 }
 
 const UserComment: React.FC<UserCommentProps> = ({ comment }) => {
-  // const comment =
+  // const commentFake =
   //   'Dolor consequatur enim quia vero cumque et? Alias nam minima libero quaerat fuga. Eum quae autem doloribus architecto a. Quas maiores unde repellat magni animi expedita quidem, perspiciatis Placeat odio eos et id assumenda in Iure accusantium sapiente nisi facere.';
   return (
     <div className="user-comment-container">

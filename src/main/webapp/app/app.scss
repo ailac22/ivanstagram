@@ -219,6 +219,9 @@ Generic styles
 
 /* end of padding helpers */
 
+a:link {
+  text-decoration: none;
+}
 .no-margin {
   margin: 0px;
 }

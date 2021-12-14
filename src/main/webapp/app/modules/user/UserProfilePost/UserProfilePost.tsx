@@ -17,9 +17,9 @@ const UserProfilePost: React.FC<UserProfilePostProps> = ({ post }) => {
       <CardImgOverlay className="overlay">
         <div className="icon-info">
           <FontAwesomeIcon icon={faComment} />
-          <span className="view-comment-numbers">1200</span>
+          <span className="view-comment-numbers">{post.commentCount}</span>
           <FontAwesomeIcon icon={faHeart} />
-          <span className="view-comment-numbers">100</span>
+          <span className="view-comment-numbers">{post.likeCount}</span>
         </div>
       </CardImgOverlay>
     );

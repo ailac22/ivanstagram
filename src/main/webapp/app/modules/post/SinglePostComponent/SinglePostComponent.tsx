@@ -27,12 +27,14 @@ const SinglePostComponent: React.FC<SinglePostComponentProps> = ({ post }) => {
         <div>
           <img className="main-image" src={`data:${post.imageContentType};base64,${post.image}`} />
         </div>
-        <div className="comments">
+        <div className="comments-main">
           <UserHeaderComponent user={post.owner} />
           <br />
-          {comments.map((comment, key) => {
-            return <UserComment key={key} comment={comment} />;
-          })}
+          <section className="comments-section">
+            {comments.map((comment, key) => {
+              return <UserComment key={key} comment={comment} />;
+            })}
+          </section>
           <LikeComment post={post} />
         </div>
       </div>

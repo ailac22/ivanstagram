@@ -5,6 +5,7 @@ import { faComment as solidComment, faHeart as solidHeart } from '@fortawesome/f
 import axios from 'axios';
 import { IPost } from 'app/shared/model/post.model';
 import { formatDistanceToNow } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 interface ILikeCommentProps {
   post: IPost;
@@ -66,7 +67,9 @@ const LikeCommentPanel: React.FC<ILikeCommentProps> = ({ post, commentHandler })
         <FontAwesomeIcon onClick={commentHandler} className="likecomment-button" size="lg" icon={regularComment} />
       </div>
       <div className="likecomment-like-count">{getLikes()} likes</div>
-      <div className="likecomment-time-ago">{formatDistanceToNow(timeAgo).toString()} ago</div>
+      <Link to={`/p/${post.id}`}>
+        <div className="likecomment-time-ago">{formatDistanceToNow(timeAgo).toString()} ago</div>
+      </Link>
     </section>
   );
 };

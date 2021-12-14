@@ -2,10 +2,10 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import PostComponent from 'app/modules/post/PostComponent';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-// import { getUserEntries } from 'app/entities/entry/entry.reducer'; !!!!!!!!
-// import { getUser } from 'app/entities/ivs-user/ivs-user.reducer';  !!!!!!!!!!!!!!!
+// import { getUserEntries } from 'app/entities/entry/entry.reducer'; //TODO: !!!!!!!!
+// import { getUser } from 'app/entities/ivs-user/ivs-user.reducer';  //TODO: !!!!!!!!!!!!!!!
 import { Button } from 'reactstrap';
-import UserProfileHeader from 'app/modules/user/UserProfileHeader';
+import UserProfileHeader from 'app/modules/user/UserProfileHeader/UserProfileHeader';
 import FollowState from 'app/shared/model/info-types';
 import './UserProfile.scss';
 import { RouteComponentProps } from 'react-router-dom';
@@ -57,7 +57,6 @@ const UserProfile: React.FC<RouteComponentProps> = (props: RouteComponentProps<{
     <>
       <Header isAuthenticated={true} isAdmin={false} ribbonEnv={''} isInProduction={false} isOpenAPIEnabled={false} />
       <UserProfileHeader user={user}></UserProfileHeader>
-      <br />
       <Button color="primary" onClick={handlerFollowUser}>
         {following === FollowState.TO_FOLLOW ? 'Follow' : 'Following'}
       </Button>

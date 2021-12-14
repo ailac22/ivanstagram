@@ -13,12 +13,11 @@ $borderColor: lightgrey;
   // background-color:blue;
 }
 
-.comments {
-  display: flow-root;
+.comments-main {
   border-left: 1px solid $borderColor;
   min-width: 100px;
 }
 
-.myred {
-  background-color: red;
+.comments-section {
+  overflow-x: auto;
 }

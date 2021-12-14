@@ -15,6 +15,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Formula;
 
 /**
  * A user.
@@ -98,6 +99,15 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JoinTable(name = "follows", joinColumns = @JoinColumn(name = "following"), inverseJoinColumns = @JoinColumn(name = "followed"))
     @JsonIgnoreProperties(value = { "user", "following" }, allowSetters = true)
     private Set<User> following = new HashSet<>();
+
+    @Formula("(select count(*) from follows f where f.followed = id)")
+    private int numFollowers;
+
+    @Formula("(select count(*) from post p where p.owner_id = id)")
+    private int numPosts;
+
+    @Formula("(select count(*) from follows f where f.following = id)")
+    private int numFollowing; // TODO: Repeated with following.size(), but it's failing on the getter;
 
     public void follow(User e) {
         following.add(e);
@@ -214,6 +224,18 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setPersistentTokens(Set<PersistentToken> persistentTokens) {
         this.persistentTokens = persistentTokens;
+    }
+
+    public int getNumFollowers() {
+        return numFollowers;
+    }
+
+    public int getNumFollowing() {
+        return numFollowing;
+    }
+
+    public int getNumPosts() {
+        return numPosts;
     }
 
     @Override

@@ -18,7 +18,6 @@ const PostComponent: React.FC<PostComponentProps> = ({ post }) => {
         <CardImg src={`data:${post.imageContentType};base64,${post.image}`} width="100%"></CardImg>
         <CardBody>
           <LikeComment post={post} />
-          <CardText>Footer was here</CardText>
         </CardBody>
       </Card>
     </div>

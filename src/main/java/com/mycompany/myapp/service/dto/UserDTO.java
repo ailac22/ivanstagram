@@ -15,6 +15,14 @@ public class UserDTO {
 
     private String lastName;
 
+    private int numFollowers;
+
+    private int numFollowing;
+
+    private int numPosts;
+
+    private String comment;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -27,6 +35,13 @@ public class UserDTO {
         this.firstName = user.getFirstName();
 
         this.lastName = user.getLastName();
+
+        this.numFollowers = user.getNumFollowers();
+
+        this.numFollowing = user.getNumFollowing();
+
+        this.numPosts = user.getNumPosts();
+        // this.comment = user.getComment();
     }
 
     public Long getId() {
@@ -59,6 +74,18 @@ public class UserDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public int getNumFollowers() {
+        return numFollowers;
+    }
+
+    public int getNumFollowing() {
+        return numFollowing;
+    }
+
+    public int getNumPosts() {
+        return numPosts;
     }
 
     // prettier-ignore
