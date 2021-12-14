@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
@@ -168,10 +169,20 @@ public class PostResource {
         return postService.findByUser(user);
     }
 
+    @GetMapping("/p/{id}/like")
+    public ResponseEntity<Boolean> isPostLiked(@PathVariable Long id) {
+        return ResponseEntity.ok(postService.isPostLiked(id));
+    }
+
     @PostMapping("/p/{id}/like")
     public ResponseEntity like(@PathVariable Long id) {
         postService.likePost(id);
+        return ResponseEntity.ok().build();
+    }
 
+    @PostMapping("/p/{id}/unlike")
+    public ResponseEntity unlike(@PathVariable Long id) {
+        postService.unlikePost(id);
         return ResponseEntity.ok().build();
     }
 }

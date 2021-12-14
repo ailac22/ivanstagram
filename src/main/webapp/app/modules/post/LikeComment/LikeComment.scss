@@ -3,23 +3,35 @@
   padding: 0.75em;
 }
 
-.likecomment-button {
+.likecomment-button-basic {
   margin: 5px;
-  color: black;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-.likecomment-button:hover {
-  color: grey;
-  cursor: pointer;
+.likecomment-button {
+  @extend .likecomment-button-basic;
+
+  &:hover {
+    color: grey;
+  }
+}
+
+.likecomment-button-red {
+  @extend .likecomment-button-basic;
+  color: red;
 }
 
 .likecomment-like-count {
+  font-size: 1em;
   font-weight: bold;
 }
 
 .likecomment-time-ago {
   margin-bottom: 0.5em;
-  font-size: 10px;
+  font-size: 0.8em;
   color: grey;
 }
 

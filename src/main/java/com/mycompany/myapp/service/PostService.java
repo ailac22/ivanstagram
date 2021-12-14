@@ -4,6 +4,7 @@ import com.mycompany.myapp.domain.Post;
 import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.PostRepository;
 import com.mycompany.myapp.security.SecurityUtils;
+import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -127,12 +128,37 @@ public class PostService {
 
     public void likePost(Long postId) {
         this.findOne(postId)
-            .ifPresent(post -> {
-                User user = userService.getCurrentUser();
-                post.addLike(user);
+            .ifPresentOrElse(
+                post -> {
+                    User user = userService.getCurrentUser();
+                    post.addLike(user);
+                    postRepository.save(post);
+                },
+                () -> {
+                    throw new BadRequestAlertException("Not found", "Post", "");
+                }
+            );
+    }
 
-                postRepository.save(post);
-                // post.addLike(currentUser);
-            });
+    public void unlikePost(Long postId) {
+        this.findOne(postId)
+            .ifPresentOrElse(
+                post -> {
+                    User user = userService.getCurrentUser();
+                    post.removeLike(user);
+                    postRepository.save(post);
+                },
+                () -> {
+                    throw new BadRequestAlertException("Not found", "Post", "");
+                }
+            );
+    }
+
+    public boolean isPostLiked(Long postId) {
+        var post = this.findOne(postId);
+        if (post.isPresent()) {
+            User user = userService.getCurrentUser();
+            return post.get().getLikes().contains(user);
+        } else throw new BadRequestAlertException("Not found", "Post", "");
     }
 }

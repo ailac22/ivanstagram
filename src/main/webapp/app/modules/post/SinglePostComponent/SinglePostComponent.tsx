@@ -33,7 +33,7 @@ const SinglePostComponent: React.FC<SinglePostComponentProps> = ({ post }) => {
           {comments.map((comment, key) => {
             return <UserComment key={key} comment={comment} />;
           })}
-          <LikeComment postId={post.id} />
+          <LikeComment post={post} />
         </div>
       </div>
     </>

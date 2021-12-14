@@ -6,9 +6,10 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import Picker from 'emoji-picker-react';
 import LikeCommentPanel from './LikeCommentPanel';
 import axios, { AxiosResponse } from 'axios';
+import { IPost } from 'app/shared/model/post.model';
 
 interface ILikeCommentProps {
-  postId: number;
+  post: IPost;
 }
 
 interface IFormInputs {
@@ -16,23 +17,26 @@ interface IFormInputs {
   postId: number;
 }
 
-const LikeComment: React.FC<ILikeCommentProps> = ({ postId }) => {
+const LikeComment: React.FC<ILikeCommentProps> = ({ post }) => {
   function handleEmoji() {}
 
-  const { register, handleSubmit, watch, resetField, formState } = useForm<IFormInputs>({ mode: 'onChange' });
+  const { register, handleSubmit, setFocus, watch, resetField, formState } = useForm<IFormInputs>({ mode: 'onChange' });
   // <Picker onEmojiClick={handleEmoji}/>
 
   watch('comment', '');
 
   const onSubmit: SubmitHandler<IFormInputs> = data => {
-    data.postId = postId;
+    data.postId = post.id;
     axios.post<IFormInputs>('/api/comments', data);
     resetField('comment');
   };
 
+  function focusComment() {
+    setFocus('comment');
+  }
   return (
     <>
-      <LikeCommentPanel />
+      <LikeCommentPanel commentHandler={focusComment} post={post} />
 
       <div className="comment-box-container">
         <form onSubmit={handleSubmit(onSubmit)} className="singlepost-comment-box-form">

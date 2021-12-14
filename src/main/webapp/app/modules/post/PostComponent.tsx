@@ -10,8 +10,6 @@ type PostComponentProps = {
   post: IPost;
 };
 
-// Esto se llamará 'FeedPostComponent'
-// UserpostHeader user={post.owner}></UserpostHeader>
 const PostComponent: React.FC<PostComponentProps> = ({ post }) => {
   return (
     <div>
@@ -19,8 +17,7 @@ const PostComponent: React.FC<PostComponentProps> = ({ post }) => {
       <Card key={post.id}>
         <CardImg src={`data:${post.imageContentType};base64,${post.image}`} width="100%"></CardImg>
         <CardBody>
-          <LikeComment postId={post.id} />
-          <p>Likes: {post.likeCount}</p>
+          <LikeComment post={post} />
           <CardText>Footer was here</CardText>
         </CardBody>
       </Card>
