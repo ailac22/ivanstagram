@@ -16,6 +16,7 @@ export interface IUser {
   numFollowers?: number;
   numFollowing?: number;
   numPosts?: number;
+  link?: string;
 }
 
 export const defaultValue: Readonly<IUser> = {

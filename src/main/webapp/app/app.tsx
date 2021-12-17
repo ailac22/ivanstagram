@@ -36,14 +36,12 @@ export const App = () => {
   const paddingTop = '60px';
   return (
     <Router basename={baseHref}>
-      <div className="app-container" style={{ paddingTop }}>
+      <div className="main-container" style={{ paddingTop }}>
         <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
-        <div className="container" id="app-view-container">
-          <Card className="jh-card">
-            <ErrorBoundary>
-              <AppRoutes isAuthenticated={isAuthenticated} />
-            </ErrorBoundary>
-          </Card>
+        <div className="container-sm" id="app-view-container">
+          <ErrorBoundary>
+            <AppRoutes isAuthenticated={isAuthenticated} />
+          </ErrorBoundary>
         </div>
       </div>
     </Router>

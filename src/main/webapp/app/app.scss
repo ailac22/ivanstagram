@@ -261,8 +261,21 @@ a:hover {
   cursor: pointer;
 }
 
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: #00376b;
+}
+
 .hand {
   cursor: pointer;
+}
+
+.main-container {
+  margin: auto;
+  max-width: 960px; //TODO: This is a standard breakpoint
 }
 
 button.anchor-btn {

@@ -23,6 +23,8 @@ public class UserDTO {
 
     private String comment;
 
+    private String link;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -41,6 +43,10 @@ public class UserDTO {
         this.numFollowing = user.getNumFollowing();
 
         this.numPosts = user.getNumPosts();
+
+        this.comment = user.getComment();
+
+        this.link = user.getLink();
         // this.comment = user.getComment();
     }
 
@@ -86,6 +92,14 @@ public class UserDTO {
 
     public int getNumPosts() {
         return numPosts;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public String getLink() {
+        return link;
     }
 
     // prettier-ignore

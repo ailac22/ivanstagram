@@ -81,6 +81,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_date")
     private Instant resetDate = null;
 
+    @Column(name = "comment")
+    private String comment;
+
+    @Column(name = "link")
+    private String link;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -236,6 +242,22 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public int getNumPosts() {
         return numPosts;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getLink() {
+        return link;
     }
 
     @Override

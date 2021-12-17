@@ -1,6 +1,7 @@
 .user-profile-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  padding: 50px;
 }
 
 .user-main-profile-image {
@@ -10,10 +11,40 @@
 
 .uph-numbers-section {
   display: flex;
-  justify-content: space-between;
-  width: 20rem;
+  justify-content: flex-start;
 }
 
-.uph-number {
+.uph-follow-info {
+  margin-right: 2rem;
+}
+.uph-name-section {
+  display: flex;
+  margin-bottom: 0.75rem;
+  align-items: center;
+}
+
+@mixin follow-button-basics {
+  border-radius: 0.25rem;
+  padding: 0.25em 1.5em;
+}
+
+.uph-follow-button {
+  @include follow-button-basics();
+  color: white;
+  font-weight: bold;
+  background-color: dodgerblue;
+  border: none;
+}
+
+.uph-following-button {
+  @include follow-button-basics();
+  background-color: white;
+  border: 1px solid #cccccc;
+}
+
+.uph-name {
+  margin-right: 2rem;
+}
+.uph-bold {
   font-weight: bold;
 }

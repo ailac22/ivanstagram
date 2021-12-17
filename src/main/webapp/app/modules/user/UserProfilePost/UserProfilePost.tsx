@@ -25,8 +25,6 @@ const UserProfilePost: React.FC<UserProfilePostProps> = ({ post }) => {
     );
   }
 
-  const transition = 10000;
-
   const overlay = isHovering ? renderImageOverlay() : '';
 
   // Se intentaba usar <Fade in={isHovering} transitionAppear={false} transitionAppearTimeout={transition}>

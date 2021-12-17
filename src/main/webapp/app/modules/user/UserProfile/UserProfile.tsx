@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import PostComponent from 'app/modules/post/PostComponent';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
@@ -22,8 +21,6 @@ const UserProfile: React.FC<RouteComponentProps> = (props: RouteComponentProps<{
 
   const userName = props.match.params.user;
 
-  const [following, setFollowing] = useState<FollowState>(FollowState.TO_FOLLOW);
-
   const { data: posts, error } = usePosts(userName);
   const { data: user, error: userError } = useUser(userName);
 
@@ -31,13 +28,9 @@ const UserProfile: React.FC<RouteComponentProps> = (props: RouteComponentProps<{
 
   if (!posts || !user) return <p>Loading...</p>;
 
-  function handlerFollowUser() {
-    axios.post(`/api/follow/${userName}`).then(response => setFollowing(response.data));
-  }
-
   function renderFeed() {
     return (
-      <div className="userPhotosGrid">
+      <section className="userPhotosGrid">
         {posts.map(post => {
           return (
             <>
@@ -47,7 +40,7 @@ const UserProfile: React.FC<RouteComponentProps> = (props: RouteComponentProps<{
             </>
           );
         })}
-      </div>
+      </section>
     );
   }
 
@@ -57,9 +50,6 @@ const UserProfile: React.FC<RouteComponentProps> = (props: RouteComponentProps<{
     <>
       <Header isAuthenticated={true} isAdmin={false} ribbonEnv={''} isInProduction={false} isOpenAPIEnabled={false} />
       <UserProfileHeader user={user}></UserProfileHeader>
-      <Button color="primary" onClick={handlerFollowUser}>
-        {following === FollowState.TO_FOLLOW ? 'Follow' : 'Following'}
-      </Button>
 
       {feed}
     </>
