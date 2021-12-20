@@ -15,7 +15,7 @@ const UserComment: React.FC<UserCommentProps> = ({ comment }) => {
     <div className="user-comment-container">
       <img className="profileImage" src="content/images/jhipster_family_member_0_head-192.png" alt="" />
       <div className="user-comment-text">
-        <span className="user-comment-user-name">{comment.owner.login}</span> · {comment.comment}
+        <span className="fw-bold text-break">{comment.owner.login}</span> · {comment.comment}
       </div>
     </div>
   );

@@ -31,10 +31,7 @@ public class PublicUserResource {
 
     private final UserService userService;
 
-    private enum FollowState {
-        TO_FOLLOW,
-        FOLLOWING,
-    }
+    // It is a type in case we want to create private profiles in the future
 
     public PublicUserResource(UserService userService) {
         this.userService = userService;
@@ -77,11 +74,29 @@ public class PublicUserResource {
     }
 
     @PostMapping("/follow/{user}")
-    public FollowState followUser(@PathVariable(value = "user") String login) {
+    public UserService.FollowState followUser(@PathVariable(value = "user") String login) {
         String currentUser = SecurityUtils.getCurrentUserLogin().get();
 
         userService.followUser(currentUser, login);
 
-        return FollowState.FOLLOWING;
+        return UserService.FollowState.FOLLOWING;
+    }
+
+    @PostMapping("/unfollow/{user}")
+    public UserService.FollowState unfollowUser(@PathVariable(value = "user") String login) {
+        String currentUser = SecurityUtils.getCurrentUserLogin().get();
+
+        userService.unfollowUser(currentUser, login);
+
+        return UserService.FollowState.TO_FOLLOW;
+    }
+
+    @GetMapping("/follow/{user}")
+    public ResponseEntity<UserService.FollowState> isFollowingUser(@PathVariable(value = "user") String login) {
+        String currentUser = SecurityUtils.getCurrentUserLogin().get();
+
+        UserService.FollowState f = userService.getFollowState(currentUser, login);
+
+        return new ResponseEntity<>(f, HttpStatus.OK);
     }
 }

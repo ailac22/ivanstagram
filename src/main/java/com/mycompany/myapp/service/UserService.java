@@ -42,6 +42,11 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
+    public enum FollowState {
+        TO_FOLLOW,
+        FOLLOWING,
+    }
+
     public UserService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
@@ -329,21 +334,27 @@ public class UserService {
     }
 
     public void followUser(String follower, String followed) {
-        log.debug("SHHhh! {} is gonna follow {}", follower, followed);
         User user = userRepository.findOneByLogin(follower).get();
-        log.debug("ivs user first : {}", user);
-
         User user2 = userRepository.findOneByLogin(followed).get();
-        log.debug("ivs user second : {}", user2);
 
         user.follow(user2);
         userRepository.save(user);
-        // User followerUser =
-        // userRepository.findOneByLogin(follower.toLowerCase()).get();
+    }
 
-        // User followedUser =
-        // userRepository.findOneByLogin(follower.toLowerCase()).get();
+    public void unfollowUser(String follower, String followed) {
+        User user = userRepository.findOneByLogin(follower).get();
+        User user2 = userRepository.findOneByLogin(followed).get();
 
+        user.unfollow(user2);
+        userRepository.save(user);
+    }
+
+    @Transactional(readOnly = true)
+    public FollowState getFollowState(String userFollowing, String userFollowed) {
+        User user = userRepository.findOneByLogin(userFollowing).get();
+        User user2 = userRepository.findOneByLogin(userFollowed).get();
+
+        if (user.isFollowing(user2)) return FollowState.FOLLOWING; else return FollowState.TO_FOLLOW;
     }
 
     @Transactional(readOnly = true)

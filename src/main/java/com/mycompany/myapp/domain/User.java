@@ -119,6 +119,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
         following.add(e);
     }
 
+    public void unfollow(User e) {
+        following.remove(e);
+    }
+
+    public boolean isFollowing(User e) {
+        return following.contains(e);
+    }
+
     public Long getId() {
         return id;
     }

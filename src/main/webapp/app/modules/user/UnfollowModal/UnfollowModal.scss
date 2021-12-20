@@ -1,0 +1,39 @@
+@use 'app/_bootstrap-variables.scss' as basics;
+// @import "bootstrap/scss/utilities";
+
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/utilities';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities/api';
+
+$modalBorderRadius: 1em;
+
+.modal-body-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-button {
+  background-color: white;
+  border: none;
+  border-top: 1px solid basics.$ivs-light-gray;
+  height: 2.5rem;
+}
+
+.modal-button-round {
+  @extend .modal-button;
+  border-bottom-right-radius: $modalBorderRadius;
+  border-bottom-left-radius: $modalBorderRadius;
+}
+
+.small-modal {
+  border-radius: $modalBorderRadius;
+}
+
+.modal-content-class {
+  border-radius: $modalBorderRadius;
+  border: none;
+  // background-color: red ;
+}

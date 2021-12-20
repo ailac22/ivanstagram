@@ -4,9 +4,11 @@ import './UserProfileHeader.scss';
 import FollowState from 'app/shared/model/info-types';
 import { Button } from 'reactstrap';
 import axios from 'axios';
+import useFollow from 'app/shared/followHook';
 
 import { faUser, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import UnfollowModal from 'app/modules/user/UnfollowModal/UnfollowModal';
 
 interface UserHeaderProps {
   user: IUser;
@@ -15,12 +17,28 @@ interface UserHeaderProps {
 // TODO: XSS on a=href? check backend
 
 const UserProfileHeader: React.FC<UserHeaderProps> = ({ user }) => {
-  function handlerFollowUser() {
-    axios.post(`/api/follow/${user.login}`).then(response => setFollowing(response.data));
+  const [following, toggleFollowing]: [FollowState, () => void] = useFollow(user);
+
+  // const [following, toggleFollowing] = useState<FollowState>(FollowState.TO_FOLLOW);
+  const [unfollowOpen, setUnfollowOpen] = useState(false);
+
+  function toggleOpen() {
+    setUnfollowOpen(!unfollowOpen);
   }
 
-  const [following, setFollowing] = useState<FollowState>(FollowState.TO_FOLLOW);
+  // const followEP = followEndpoint(user.login);
 
+  useEffect(() => {
+    // axios.get(followEP).then(response => setFollowing(response.data))
+    // toggleFollowing();
+  }, []);
+
+  // <>
+  //   <FontAwesomeIcon size="xs" icon={faUser} />
+  //   <FontAwesomeIcon size="xs" icon={faCheck} />
+  // </>
+  console.log('following: ');
+  console.log(following);
   return (
     <>
       <header className="user-profile-header">
@@ -30,9 +48,13 @@ const UserProfileHeader: React.FC<UserHeaderProps> = ({ user }) => {
         <div className="user-main-profile-info">
           <div className="uph-name-section">
             <h2 className="uph-name">{user?.login}</h2>
-            <button type="button" className={following ? 'uph-following-button' : 'uph-follow-button'} onClick={handlerFollowUser}>
+            <button
+              type="button"
+              className={following === FollowState.FOLLOWING ? 'uph-following-button' : 'uph-follow-button'}
+              onClick={following === FollowState.TO_FOLLOW ? toggleFollowing : toggleOpen}
+            >
               {following === FollowState.TO_FOLLOW ? (
-                'Follow'
+                'Follow '
               ) : (
                 <>
                   <FontAwesomeIcon size="xs" icon={faUser} />
@@ -59,6 +81,13 @@ const UserProfileHeader: React.FC<UserHeaderProps> = ({ user }) => {
           </a>
         </div>
       </header>
+      <UnfollowModal
+        user={user}
+        open={unfollowOpen}
+        setOpen={setUnfollowOpen}
+        toggleOpen={toggleOpen}
+        toggleFollowing={toggleFollowing}
+      ></UnfollowModal>
       <hr />
     </>
   );

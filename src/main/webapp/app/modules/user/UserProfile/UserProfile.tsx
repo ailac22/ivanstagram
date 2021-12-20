@@ -48,9 +48,8 @@ const UserProfile: React.FC<RouteComponentProps> = (props: RouteComponentProps<{
 
   return (
     <>
-      <Header isAuthenticated={true} isAdmin={false} ribbonEnv={''} isInProduction={false} isOpenAPIEnabled={false} />
+      <Header isAuthenticated={true} isAdmin={false} ribbonEnv={''} isInProduction={false} isOpenAPIEnabled={false} />{' '}
       <UserProfileHeader user={user}></UserProfileHeader>
-
       {feed}
     </>
   );
