@@ -2,7 +2,7 @@ import './header.scss';
 
 import React, { useState } from 'react';
 
-import { Navbar, Nav, NavbarToggler, Collapse } from 'reactstrap';
+import { Navbar, Row, Col, Nav, Container, NavbarToggler, Collapse } from 'reactstrap';
 import LoadingBar from 'react-redux-loading-bar';
 
 import { Home, Brand } from './header-components';
@@ -31,14 +31,16 @@ const Header = (props: IHeaderProps) => {
   /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
   return (
     <div id="app-header">
-      {renderDevRibbon()}
+      {
+        //  renderDevRibbon()
+      }
       <LoadingBar className="loading-bar" />
-      <Navbar data-cy="navbar" className="jh-navbar" expand="sm" fixed="top" light>
+      <Navbar data-cy="navbar" className="jh-navbar d-flex justify-content-center" expand="sm" fixed="top" light>
         <Brand />
         <Nav id="header-tabs" className="ml-auto" navbar>
           <Home />
-          {props.isAuthenticated && <EntitiesMenu />}
-          {props.isAuthenticated && props.isAdmin && <AdminMenu showOpenAPI={props.isOpenAPIEnabled} />}
+          {/*  props.isAuthenticated && <EntitiesMenu /> */}
+          {/* props.isAuthenticated && props.isAdmin && <AdminMenu showOpenAPI={props.isOpenAPIEnabled} /> */}
           <AccountMenu isAuthenticated={props.isAuthenticated} />
         </Nav>
       </Navbar>

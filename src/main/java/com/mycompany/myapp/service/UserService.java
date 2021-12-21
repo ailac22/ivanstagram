@@ -10,6 +10,7 @@ import com.mycompany.myapp.security.AuthoritiesConstants;
 import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.dto.AdminUserDTO;
 import com.mycompany.myapp.service.dto.UserDTO;
+import com.mycompany.myapp.service.mapper.UserMapper;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -17,8 +18,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -41,6 +45,9 @@ public class UserService {
     private final PersistentTokenRepository persistentTokenRepository;
 
     private final AuthorityRepository authorityRepository;
+
+    @Autowired
+    private UserMapper userMapper;
 
     public enum FollowState {
         TO_FOLLOW,
@@ -360,5 +367,16 @@ public class UserService {
     @Transactional(readOnly = true)
     public Optional<UserDTO> getPublicUser(String user) {
         return userRepository.findOneByLogin(user).map(UserDTO::new);
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserDTO> getTopRecommended() {
+        // userRepository.findTopRecommended(new PageRequest(0, 5)).map(UserDTO::new);
+        Pageable paging = PageRequest.of(0, 5);
+
+        var users = userRepository.findTopRecommended(paging);
+
+        List<UserDTO> userDTOS = userMapper.usersToUserDTOs(users);
+        return userDTOS;
     }
 }

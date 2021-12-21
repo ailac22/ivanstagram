@@ -6,11 +6,6 @@ body {
   margin: 0;
 }
 
-a {
-  color: #533f03;
-  font-weight: bold;
-}
-
 * {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -261,13 +256,18 @@ a:hover {
   cursor: pointer;
 }
 
-a,
-a:hover,
-a:focus,
-a:active {
-  text-decoration: none;
-  color: #00376b;
-}
+// a {
+//    color: #533f03;
+//    font-weight: bold;
+// }
+
+// a,
+// a:hover,
+// a:focus,
+// a:active {
+//   text-decoration: none;
+//   color: #00376b;
+// }
 
 .hand {
   cursor: pointer;

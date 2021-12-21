@@ -1,12 +1,6 @@
 @use 'app/_bootstrap-variables.scss' as basics;
 // @import "bootstrap/scss/utilities";
 
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/utilities';
-@import 'bootstrap/scss/mixins';
-@import 'bootstrap/scss/utilities/api';
-
 $modalBorderRadius: 1em;
 
 .modal-body-container {

@@ -99,4 +99,9 @@ public class PublicUserResource {
 
         return new ResponseEntity<>(f, HttpStatus.OK);
     }
+    // @GetMapping("/topRecommended")
+    // public ResponseEntity<List<UserDTO>> topRecommended(){
+
+    //    return ResponseEntity.ok(userService.getTopRecommended());
+    // }
 }
