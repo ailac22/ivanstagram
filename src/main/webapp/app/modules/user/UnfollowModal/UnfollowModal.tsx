@@ -15,7 +15,7 @@ interface UnfollowModalProps {
 // className="user-main-profile-image"
 const UnfollowModal: React.FC<UnfollowModalProps> = ({ user, toggleOpen, open, setOpen, toggleFollowing }) => {
   return (
-    <Modal contentClassName="modal-content-class" toggle={toggleOpen} fade={true} centered={true} isOpen={open}>
+    <Modal contentClassName="unfollow-modal-content-class" toggle={toggleOpen} fade={true} centered={true} isOpen={open}>
       <ModalBody>
         <div className="modal-body-container">
           <img className="rounded-circle" src="content/images/jhipster_family_member_0_head-192.png" alt="" />

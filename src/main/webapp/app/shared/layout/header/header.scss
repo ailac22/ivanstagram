@@ -1,3 +1,5 @@
+@use 'app/_bootstrap-variables.scss' as basics;
+
 $header-color: #fff;
 $header-color-secondary: #bbb;
 $header-color-hover: darken($header-color, 20%);
@@ -31,6 +33,16 @@ Developement Ribbon
     text-decoration: none;
     text-shadow: 0 0 5px #444;
     pointer-events: none;
+  }
+}
+
+.search-user-input {
+  outline: 1px solid lightgray;
+  padding: 0.5em;
+  height: 40px;
+  &:focus {
+    outline: none;
+    border: none;
   }
 }
 

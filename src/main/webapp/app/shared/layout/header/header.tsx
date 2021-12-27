@@ -5,8 +5,12 @@ import React, { useState } from 'react';
 import { Navbar, Row, Col, Nav, Container, NavbarToggler, Collapse } from 'reactstrap';
 import LoadingBar from 'react-redux-loading-bar';
 
-import { Home, Brand } from './header-components';
+import { Home, Brand, AddPost } from './header-components';
 import { AdminMenu, EntitiesMenu, AccountMenu } from '../menus';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
+import AddPostModal from 'app/modules/post/AddPostModal/AddPostModal';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -18,6 +22,7 @@ export interface IHeaderProps {
 
 const Header = (props: IHeaderProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [addPostOpen, setAddPostOpen] = useState<boolean>(false);
 
   const renderDevRibbon = () =>
     props.isInProduction === false ? (
@@ -27,7 +32,7 @@ const Header = (props: IHeaderProps) => {
     ) : null;
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
-
+  const toggleAddPostOpen = () => setAddPostOpen(!addPostOpen);
   /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
   return (
     <div id="app-header">
@@ -35,15 +40,27 @@ const Header = (props: IHeaderProps) => {
         //  renderDevRibbon()
       }
       <LoadingBar className="loading-bar" />
-      <Navbar data-cy="navbar" className="jh-navbar d-flex justify-content-center" expand="sm" fixed="top" light>
-        <Brand />
-        <Nav id="header-tabs" className="ml-auto" navbar>
-          <Home />
-          {/*  props.isAuthenticated && <EntitiesMenu /> */}
-          {/* props.isAuthenticated && props.isAdmin && <AdminMenu showOpenAPI={props.isOpenAPIEnabled} /> */}
-          <AccountMenu isAuthenticated={props.isAuthenticated} />
-        </Nav>
+      <Navbar data-cy="navbar" className="jh-navbar" expand="sm" fixed="top" light>
+        <div className="main-container w-100 d-flex justify-content-between align-items-center">
+          <Brand />
+
+          <input
+            className="search-user-input d-none d-sm-inline border-0 rounded-1"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <Nav id="header-tabs" className="ml-auto d-flex" navbar>
+            <Home />
+            <AddPost togglePostOpen={toggleAddPostOpen} />
+            {/*  props.isAuthenticated && <EntitiesMenu /> */}
+            {/* props.isAuthenticated && props.isAdmin && <AdminMenu showOpenAPI={props.isOpenAPIEnabled} /> */}
+            <AccountMenu isAuthenticated={props.isAuthenticated} />
+          </Nav>
+        </div>
       </Navbar>
+
+      <AddPostModal open={addPostOpen} toggleOpen={toggleAddPostOpen} />
     </div>
   );
 };

@@ -368,15 +368,14 @@ public class UserService {
     public Optional<UserDTO> getPublicUser(String user) {
         return userRepository.findOneByLogin(user).map(UserDTO::new);
     }
+    // @Transactional(readOnly = true)
+    // public List<UserDTO> getTopRecommended() {
+    //     // userRepository.findTopRecommended(new PageRequest(0, 5)).map(UserDTO::new);
+    //     Pageable paging = PageRequest.of(0, 5);
 
-    @Transactional(readOnly = true)
-    public List<UserDTO> getTopRecommended() {
-        // userRepository.findTopRecommended(new PageRequest(0, 5)).map(UserDTO::new);
-        Pageable paging = PageRequest.of(0, 5);
+    //     var users = userRepository.findTopRecommended(paging);
 
-        var users = userRepository.findTopRecommended(paging);
-
-        List<UserDTO> userDTOS = userMapper.usersToUserDTOs(users);
-        return userDTOS;
-    }
+    //     List<UserDTO> userDTOS = userMapper.usersToUserDTOs(users);
+    //     return userDTOS;
+    // }
 }
