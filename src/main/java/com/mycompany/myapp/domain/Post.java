@@ -8,7 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.JoinFormula;
+
+// import org.hibernate.annotations.JoinFormula;
 
 /**
  * A Post.
@@ -33,7 +34,7 @@ public class Post implements Serializable {
     @Column(name = "image_content_type", nullable = false)
     private String imageContentType;
 
-    @NotNull
+    // @NotNull
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp
     private ZonedDateTime createdAt;

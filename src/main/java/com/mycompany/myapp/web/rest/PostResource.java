@@ -5,6 +5,7 @@ import com.mycompany.myapp.repository.PostRepository;
 import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.PostService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
+import com.mycompany.myapp.web.rest.utils.NewPost;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -15,7 +16,6 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
@@ -52,12 +52,17 @@ public class PostResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/posts")
-    public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) throws URISyntaxException {
-        log.debug("REST request to save Post : {}", post);
-        if (post.getId() != null) {
-            throw new BadRequestAlertException("A new post cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        Post result = postService.save(post);
+    public ResponseEntity<Post> createPost(@RequestBody NewPost newPost) throws URISyntaxException {
+        // log.debug("REST request to save Post : {}", post);
+        // if (post.getId() != null) {
+        //     throw new BadRequestAlertException("A new post cannot already have an ID", ENTITY_NAME, "idexists");
+        // }
+
+        Post postCreated = new Post();
+        postCreated.setImage(newPost.image);
+        postCreated.setImageContentType(newPost.imageContentType);
+
+        Post result = postService.save(postCreated);
         return ResponseEntity
             .created(new URI("/api/posts/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))

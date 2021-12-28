@@ -72,6 +72,7 @@ public class CommentResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
 
+    // TODO: Check for sqli
     // @NotEmpty
     @PostMapping("/comments")
     public ResponseEntity<Comment> createComment(@RequestBody ObjectNode commentNode) throws URISyntaxException {

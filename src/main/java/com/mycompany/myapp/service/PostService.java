@@ -41,6 +41,10 @@ public class PostService {
      */
     public Post save(Post post) {
         log.debug("Request to save Post : {}", post);
+
+        User user = userService.getCurrentUser();
+        post.setOwner(user);
+
         return postRepository.save(post);
     }
 
