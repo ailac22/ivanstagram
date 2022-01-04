@@ -45,10 +45,10 @@ spring:
   liquibase:
     contexts: prod
   mail:
-    host: ${MAIL_SERVER}
-    port: ${MAIL_PORT}
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
+    host: ${MAILGUN_SMTP_SERVER}
+    port: ${MAILGUN_SMTP_PORT}
+    username: ${MAILGUN_SMTP_LOGIN}
+    password: ${MAILGUN_SMTP_PASSWORD}
   thymeleaf:
     cache: true
   sleuth:
