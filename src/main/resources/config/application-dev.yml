@@ -44,10 +44,10 @@ spring:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
   mail:
-    host: ${MAILTRAP_SERVER}
-    port: ${MAILTRAP_PORT}
-    username: ${MAILTRAP_USERNAME}
-    password: ${MAILTRAP_PASSWORD}
+    host: ${MAIL_SERVER}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
