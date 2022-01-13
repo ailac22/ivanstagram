@@ -30,8 +30,8 @@ const UserProfilePost: React.FC<UserProfilePostProps> = ({ post }) => {
   // Se intentaba usar <Fade in={isHovering} transitionAppear={false} transitionAppearTimeout={transition}>
 
   return (
-    <Card key={post.id} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
-      <CardImg className={isHovering ? 'hoverImage' : 'image'} src={`data:${post.imageContentType};base64,${post.image}`} />
+    <Card className="h-100" key={post.id} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
+      <CardImg className={isHovering ? 'upp-hoverImage' : 'upp-image'} src={`data:${post.imageContentType};base64,${post.image}`} />
       {overlay}
     </Card>
   );

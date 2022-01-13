@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IPost } from 'app/shared/model/post.model';
 import { Button, Col, Row } from 'reactstrap';
 import UserPostHeader from 'app/modules/user/UserPostHeader';
@@ -14,7 +14,15 @@ type SinglePostComponentProps = {
 };
 
 const SinglePostComponent: React.FC<SinglePostComponentProps> = ({ post }) => {
-  const { data: comments, error } = useFetchComments(post.id);
+  const { data: fetchComments, error } = useFetchComments(post.id);
+
+  const [comments, setComments] = useState<IComment[] | undefined>(undefined);
+
+  if (!comments && fetchComments && !error) setComments(fetchComments);
+
+  const addComment = (comment: IComment) => {
+    setComments([...comments, comment]);
+  };
 
   if (error) return <p>There is an error.</p>;
 
@@ -24,7 +32,7 @@ const SinglePostComponent: React.FC<SinglePostComponentProps> = ({ post }) => {
     <>
       <br />
       <div className="single-post-container">
-        <div>
+        <div className="my-auto">
           <img className="main-image" src={`data:${post.imageContentType};base64,${post.image}`} />
         </div>
         <div className="comments-main">
@@ -35,7 +43,7 @@ const SinglePostComponent: React.FC<SinglePostComponentProps> = ({ post }) => {
               return <UserComment key={key} comment={comment} />;
             })}
           </section>
-          <LikeComment post={post} />
+          <LikeComment addComment={addComment} post={post} />
         </div>
       </div>
     </>

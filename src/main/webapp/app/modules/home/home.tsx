@@ -23,26 +23,7 @@ export const Home = () => {
             <Alert color="success">You are logged in as user {account.login}.</Alert>
           </div>
         ) : (
-          <div>
-            <Alert color="warning">
-              If you want to
-              <span>&nbsp;</span>
-              <Link to="/login" className="alert-link">
-                {' '}
-                sign in
-              </Link>
-              , you can try the default accounts:
-              <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
-              <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
-            </Alert>
-
-            <Alert color="warning">
-              You do not have an account yet?&nbsp;
-              <Link to="/account/register" className="alert-link">
-                Register a new account
-              </Link>
-            </Alert>
-          </div>
+          <div></div>
         )}
         <p>If you have any question on JHipster:</p>
 

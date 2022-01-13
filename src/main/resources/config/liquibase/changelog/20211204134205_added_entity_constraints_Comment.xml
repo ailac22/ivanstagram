@@ -30,6 +30,6 @@
                                  baseTableName="comment"
                                  constraintName="fk_rel_comment_post_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="jhi_user" />
+                                 referencedTableName="post" />
     </changeSet>
 </databaseChangeLog>

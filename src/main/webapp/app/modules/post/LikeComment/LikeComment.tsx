@@ -7,9 +7,11 @@ import Picker from 'emoji-picker-react';
 import LikeCommentPanel from './LikeCommentPanel';
 import axios, { AxiosResponse } from 'axios';
 import { IPost } from 'app/shared/model/post.model';
+import { IComment } from 'app/shared/model/comment.model';
 
 interface ILikeCommentProps {
   post: IPost;
+  addComment: (comment: IComment) => void;
 }
 
 interface IFormInputs {
@@ -17,7 +19,7 @@ interface IFormInputs {
   postId: number;
 }
 
-const LikeComment: React.FC<ILikeCommentProps> = ({ post }) => {
+const LikeComment: React.FC<ILikeCommentProps> = ({ post, addComment }) => {
   function handleEmoji() {}
 
   const { register, handleSubmit, setFocus, watch, resetField, formState } = useForm<IFormInputs>({ mode: 'onChange' });
@@ -27,7 +29,9 @@ const LikeComment: React.FC<ILikeCommentProps> = ({ post }) => {
 
   const onSubmit: SubmitHandler<IFormInputs> = data => {
     data.postId = post.id;
-    axios.post<IFormInputs>('/api/comments', data);
+    axios.post<IComment>('/api/comments', data).then(c => {
+      addComment(c.data);
+    });
     resetField('comment');
   };
 

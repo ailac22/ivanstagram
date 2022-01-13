@@ -1,4 +1,11 @@
-.hoverImage {
+.upp-image {
+  object-fit: cover;
+  width: auto;
+  height: 100%;
+}
+
+.upp-hoverImage {
+  @extend .upp-image;
   transition: filter 0.2s;
   filter: brightness(0.6);
 }

@@ -9,7 +9,7 @@ $borderColor: lightgrey;
 .single-post-container {
   display: grid;
   border: 1px solid $borderColor;
-  grid-template-columns: auto 25em;
+  grid-template-columns: auto 21em;
   // background-color:blue;
 }
 
@@ -19,5 +19,6 @@ $borderColor: lightgrey;
 }
 
 .comments-section {
+  height: 40vh;
   overflow-x: auto;
 }
