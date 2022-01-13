@@ -13,7 +13,7 @@ export const BrandIcon = props => (
 );
 
 export const Brand = () => (
-  <NavbarBrand tag={Link} to="/" className="brand-logo">
+  <NavbarBrand tag={Link} to="/" className="flex-grow-1 brand-logo">
     <BrandIcon />
   </NavbarBrand>
 );
@@ -28,6 +28,8 @@ export const Home = () => (
 
 export const AddPost = ({ togglePostOpen }) => (
   <NavItem>
-    <FontAwesomeIcon onClick={togglePostOpen} size="lg" icon={faPlusSquare} />
+    <div className="">
+      <FontAwesomeIcon onClick={togglePostOpen} size="lg" icon={faPlusSquare} />
+    </div>
   </NavItem>
 );

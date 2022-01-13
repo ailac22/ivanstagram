@@ -38,6 +38,7 @@ Developement Ribbon
 
 .search-user-input {
   outline: 1px solid lightgray;
+  background-color: basics.$gray-100;
   padding: 0.5em;
   height: 40px;
   &:focus {
@@ -46,6 +47,9 @@ Developement Ribbon
   }
 }
 
+.header-nav-icons * {
+  margin: 0 0.2rem;
+}
 /* ==========================================================================
 Navbar styles
 ========================================================================== */
@@ -53,6 +57,7 @@ Navbar styles
   background-color: white;
   // padding: 0.2em 1em;
   border-bottom: 1px solid lightgrey;
+  height: 60px;
   // .profile-image {
   //   margin: -10px 0px;
   //   height: 40px;

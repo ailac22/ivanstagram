@@ -41,16 +41,16 @@ const Header = (props: IHeaderProps) => {
       }
       <LoadingBar className="loading-bar" />
       <Navbar data-cy="navbar" className="jh-navbar" expand="sm" fixed="top" light>
-        <div className="main-container w-100 d-flex justify-content-between align-items-center">
+        <div className="main-container w-100 d-flex flex-row justify-content-between align-items-center">
           <Brand />
 
           <input
-            className="search-user-input d-none d-sm-inline border-0 rounded-1"
+            className=" search-user-input d-none d-sm-inline border-0 rounded-1"
             type="search"
             placeholder="Search"
             aria-label="Search"
           />
-          <Nav id="header-tabs" className="ml-auto d-flex" navbar>
+          <Nav id="header-tabs" className="flex-grow-1 d-flex header-nav-icons flex-row justify-content-end align-items-center" navbar>
             <Home />
             <AddPost togglePostOpen={toggleAddPostOpen} />
             {/*  props.isAuthenticated && <EntitiesMenu /> */}
