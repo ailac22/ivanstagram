@@ -60,7 +60,7 @@ const FeedPage = (props: RouteComponentProps<{ url: string }>) => {
         </Col>
         <Col md="4" className="d-none d-md-block">
           <div className="mt-5">
-            <header>Suggested for you</header>
+            <header className="feedpage-suggestions-4u fw-bold">Suggestions for you</header>
             <section>
               {recommendedUsers.map(user => {
                 return <UserHeaderComponent key={user.id} user={user}></UserHeaderComponent>;

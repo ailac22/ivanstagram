@@ -1,3 +1,5 @@
+@use 'app/_bootstrap-variables.scss' as basics;
+
 .feedpage-suggested-area {
   width: 300px;
   background-color: red;
@@ -6,4 +8,8 @@
 .feedpage-sticky {
   position: fixed;
   top: 0;
+}
+
+.feedpage-suggestions-4u {
+  color: basics.$gray-600;
 }
