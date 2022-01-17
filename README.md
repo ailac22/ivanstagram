@@ -1,5 +1,7 @@
 Ivanstagram is a mini [Instagram](www.instagram.com) clone for the sake of practice
 
+You can visit it on https://ivanstagram.herokuapp.com/. Be patient on initial load! It's a free dyno and it takes some time.
+
 Some of the technologies include:
 
 [JHipster](https://www.jhipster.tech/) with:
